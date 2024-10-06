@@ -59,14 +59,23 @@ router.delete('/:id', async (req, res) => {
 });
 
 // Route to update product count
+// Route to update product details
 router.patch('/:id', async (req, res) => {
-    const { count } = req.body;
+    const { name, price, description, count, imageUrl } = req.body;
 
     try {
-        const product = await Product.findByIdAndUpdate(req.params.id, { count }, { new: true });
+        const product = await Product.findByIdAndUpdate(req.params.id, {
+            name,
+            price,
+            description,
+            count,
+            imageUrl
+        }, { new: true });
+
         if (!product) {
             return res.status(404).json({ message: 'Product not found' });
         }
+
         res.json(product);
     } catch (error) {
         res.status(500).json({ message: error.message });
