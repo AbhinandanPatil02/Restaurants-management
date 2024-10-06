@@ -1,5 +1,3 @@
-// models/productModel.js
-
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
@@ -17,10 +15,16 @@ const productSchema = new mongoose.Schema({
     },
     count: {
         type: Number,
-        default: 1, // Default count set to 1
+        required: true,
+        default: 1, // Default count if not specified
     },
+    imageUrl: {
+        type: String,
+        required: true, // Make this field required
+    },
+}, {
+    timestamps: true, // Optional: adds createdAt and updatedAt fields
 });
 
 const Product = mongoose.model('Product', productSchema);
-
 module.exports = Product;
